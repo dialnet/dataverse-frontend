@@ -53,6 +53,7 @@ jobs:
           OIDC_TOKEN_ENDPOINT: ${{ secrets.BETA_OIDC_TOKEN_ENDPOINT }}
           OIDC_LOGOUT_ENDPOINT: ${{ secrets.BETA_OIDC_LOGOUT_ENDPOINT }}
           OIDC_STORAGE_KEY_PREFIX: ${{ secrets.BETA_OIDC_STORAGE_KEY_PREFIX }}
+          OIDC_AUTO_REGISTER_USERS: ${{ secrets.BETA_OIDC_AUTO_REGISTER_USERS }}
         run: |
           mkdir -p ./dist
           cat > ./dist/config.js <<EOF
@@ -63,7 +64,8 @@ jobs:
               authorizationEndpoint: "${OIDC_AUTHORIZATION_ENDPOINT}",
               tokenEndpoint: "${OIDC_TOKEN_ENDPOINT}",
               logoutEndpoint: "${OIDC_LOGOUT_ENDPOINT}",
-              localStorageKeyPrefix: "${OIDC_STORAGE_KEY_PREFIX}"
+              localStorageKeyPrefix: "${OIDC_STORAGE_KEY_PREFIX}",
+              autoRegisterUsers: ${OIDC_AUTO_REGISTER_USERS:-false}
             },
             languages: [
               { code: 'en', name: 'English' },
@@ -82,6 +84,7 @@ jobs:
           OIDC_TOKEN_ENDPOINT: ${{ secrets.QA_OIDC_TOKEN_ENDPOINT }}
           OIDC_LOGOUT_ENDPOINT: ${{ secrets.QA_OIDC_LOGOUT_ENDPOINT }}
           OIDC_STORAGE_KEY_PREFIX: ${{ secrets.QA_OIDC_STORAGE_KEY_PREFIX }}
+          OIDC_AUTO_REGISTER_USERS: ${{ secrets.QA_OIDC_AUTO_REGISTER_USERS }}
         run: |
           mkdir -p ./dist
           cat > ./dist/config.js <<EOF
@@ -92,7 +95,8 @@ jobs:
               authorizationEndpoint: "${OIDC_AUTHORIZATION_ENDPOINT}",
               tokenEndpoint: "${OIDC_TOKEN_ENDPOINT}",
               logoutEndpoint: "${OIDC_LOGOUT_ENDPOINT}",
-              localStorageKeyPrefix: "${OIDC_STORAGE_KEY_PREFIX}"
+              localStorageKeyPrefix: "${OIDC_STORAGE_KEY_PREFIX}",
+              autoRegisterUsers: ${OIDC_AUTO_REGISTER_USERS:-false}
             },
             languages: [
               { code: 'en', name: 'English' },
@@ -111,6 +115,7 @@ jobs:
           OIDC_TOKEN_ENDPOINT: ${{ secrets.DEMO_OIDC_TOKEN_ENDPOINT }}
           OIDC_LOGOUT_ENDPOINT: ${{ secrets.DEMO_OIDC_LOGOUT_ENDPOINT }}
           OIDC_STORAGE_KEY_PREFIX: ${{ secrets.DEMO_OIDC_STORAGE_KEY_PREFIX }}
+          OIDC_AUTO_REGISTER_USERS: ${{ secrets.DEMO_OIDC_AUTO_REGISTER_USERS }}
         run: |
           mkdir -p ./dist
           cat > ./dist/config.js <<EOF
@@ -121,7 +126,8 @@ jobs:
               authorizationEndpoint: "${OIDC_AUTHORIZATION_ENDPOINT}",
               tokenEndpoint: "${OIDC_TOKEN_ENDPOINT}",
               logoutEndpoint: "${OIDC_LOGOUT_ENDPOINT}",
-              localStorageKeyPrefix: "${OIDC_STORAGE_KEY_PREFIX}"
+              localStorageKeyPrefix: "${OIDC_STORAGE_KEY_PREFIX}",
+              autoRegisterUsers: ${OIDC_AUTO_REGISTER_USERS:-false}
             },
             languages: [
               { code: 'en', name: 'English' },

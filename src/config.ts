@@ -15,7 +15,8 @@ const AppConfigSchema = z.object({
     authorizationEndpoint: z.url(),
     tokenEndpoint: z.url(),
     logoutEndpoint: z.url(),
-    localStorageKeyPrefix: z.string()
+    localStorageKeyPrefix: z.string(),
+    autoRegisterUsers: z.boolean().optional()
   }),
   defaultLanguage: z.string(),
   languages: z.array(

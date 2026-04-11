@@ -12,7 +12,10 @@ window.__APP_CONFIG__ = {
     tokenEndpoint: 'http://localhost:8000/realms/test/protocol/openid-connect/token',
     logoutEndpoint: 'http://localhost:8000/realms/test/protocol/openid-connect/logout',
     // All auth-related storage keys will be prefixed with this string
-    localStorageKeyPrefix: 'DV_'
+    localStorageKeyPrefix: 'DV_',
+    // When true, users authenticating via OIDC without a linked Dataverse account
+    // will be auto-registered instead of being shown the sign-up form
+    autoRegisterUsers: false
   },
   // UI languages available to users (if more than one is provided a language switcher will be shown)
   languages: [

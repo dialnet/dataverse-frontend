@@ -28,7 +28,8 @@ function buildTestConfig(): AppConfig {
       authorizationEndpoint: Cypress.env('oidcAuthorizationEndpoint') as string,
       tokenEndpoint: Cypress.env('oidcTokenEndpoint') as string,
       logoutEndpoint: Cypress.env('oidcLogoutEndpoint') as string,
-      localStorageKeyPrefix: Cypress.env('oidcLocalStorageKeyPrefix') as string
+      localStorageKeyPrefix: Cypress.env('oidcLocalStorageKeyPrefix') as string,
+      autoRegisterUsers: (Cypress.env('oidcAutoRegisterUsers') as boolean) ?? false
     },
     languages: Cypress.env('languages') as { code: string; name: string }[],
     defaultLanguage: Cypress.env('defaultLanguage') as string,

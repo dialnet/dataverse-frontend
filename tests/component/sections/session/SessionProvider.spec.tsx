@@ -4,6 +4,7 @@ import { ReadError } from '@iqss/dataverse-client-javascript'
 import { UserRepository } from '@/users/domain/repositories/UserRepository'
 import { UserMother } from '@tests/component/users/domain/models/UserMother'
 import { AuthContextMother } from '@tests/component/auth/AuthContextMother'
+import { initAppConfig } from '@/config'
 import {
   BEARER_TOKEN_IS_VALID_BUT_NOT_LINKED_MESSAGE,
   SessionProvider
@@ -58,6 +59,7 @@ describe('SessionProvider', () => {
           <Route element={<SessionProvider repository={userRepository} />}>
             <Route index element={<ComponentUsingContext />} />
             <Route path="sign-up" element={<div>Sign up</div>} />
+            <Route path="collections" element={<div>Collections</div>} />
           </Route>
         </Routes>
       </AuthContext.Provider>
@@ -166,6 +168,37 @@ describe('SessionProvider', () => {
     })
 
     cy.findByText('Sign up').should('exist')
+  })
+
+  it('should auto-register user when autoRegisterUsers is enabled and bearer token is valid but no linked account', () => {
+    const originalConfig = window.__APP_CONFIG__
+    window.__APP_CONFIG__ = {
+      ...originalConfig!,
+      oidc: { ...originalConfig!.oidc, autoRegisterUsers: true }
+    }
+    initAppConfig()
+
+    userRepository.register = cy.stub().resolves()
+    userRepository.getAuthenticated = cy
+      .stub()
+      .onFirstCall()
+      .rejects(new ReadError(`[403] ${BEARER_TOKEN_IS_VALID_BUT_NOT_LINKED_MESSAGE}`))
+      .onSecondCall()
+      .resolves(testUser)
+
+    renderComponent({
+      loginInProgress: false,
+      withTokenPresent: true
+    })
+
+    cy.findByText(testUser.displayName).should('exist')
+    cy.wrap(userRepository.register).should('have.been.calledOnce')
+
+    // Restore original config
+    cy.then(() => {
+      window.__APP_CONFIG__ = originalConfig
+      initAppConfig()
+    })
   })
 
   it('should detect any other ReadError instances', () => {
