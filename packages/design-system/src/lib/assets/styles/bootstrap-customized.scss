@@ -10,6 +10,18 @@ $info: $dv-info-color;
 $warning: $dv-warning-color;
 $danger: $dv-danger-color;
 
+// Rounded corners, matching the JSF frontend (Redmine #12008): 10px instead of
+// Bootstrap's default .375rem. Must precede the variables import below, since
+// Bootstrap declares these with !default.
+$border-radius: 10px;
+$border-radius-sm: 8px;
+$border-radius-lg: 12px;
+
+// White label text on the coral accent, as in the JSF frontend. Bootstrap's
+// color-contrast() otherwise picks black: white-on-#eb5656 is 3.5:1, below its
+// 4.5 default. NOTE: 3.5:1 meets WCAG AA for large text only, not normal text.
+$min-contrast-ratio: 3;
+
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
@@ -204,4 +216,13 @@ th {
   &:hover {
     text-decoration: underline;
   }
+}
+
+// The JSF theme lightens the accent on hover ($dv-primary-hover-color) whereas
+// Bootstrap's button-variant mixin darkens it. Restore the lighter hover.
+.btn-primary {
+  --bs-btn-hover-bg: #{$dv-primary-hover-color};
+  --bs-btn-hover-border-color: #{$dv-primary-hover-color};
+  --bs-btn-active-bg: #{$dv-primary-hover-color};
+  --bs-btn-active-border-color: #{$dv-primary-hover-color};
 }

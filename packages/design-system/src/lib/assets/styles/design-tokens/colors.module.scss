@@ -1,6 +1,9 @@
 // Base colors
-$dv-brand-color: #c55b28;
-$dv-primary-color: #337ab7;
+// PLATICA theme: coral accent (#eb5656) replacing the stock Dataverse blue,
+// matching the JSF frontend (Redmine #12008).
+$dv-brand-color: #eb5656;
+$dv-primary-color: #eb5656;
+$dv-primary-hover-color: #ff5656;
 $dv-secondary-color: #e0e0e0;
 $dv-success-color: #3c763d;
 $dv-danger-color: #a94442;
@@ -26,10 +29,14 @@ $dv-secondary-text-color: $dv-text-color;
 $dv-headings-color: #333;
 
 // Link colors
+// Deliberately left blue: the JSF theme reverted links to blue and kept the
+// coral accent only for the left-hand facets (Redmine #12008, 2nd commit).
 $dv-link-color: #3174af;
 $dv-link-hover-color: #23527c;
+$dv-facet-link-color: #eb5656;
+$dv-facet-link-hover-color: #c0392b;
 $dv-tooltip-color: #99bcdb;
-$dv-tooltip-hover-color: #337ab7;
+$dv-tooltip-hover-color: #eb5656;
 
 // Button colors
 $dv-button-border-color: #ccc;
@@ -40,7 +47,10 @@ $dv-border-color: #dee2e6;
 :export {
   brand: $dv-brand-color;
   primary: $dv-primary-color;
+  primary-hover-color: $dv-primary-hover-color;
   secondary: $dv-secondary-color;
+  facet-link-color: $dv-facet-link-color;
+  facet-link-hover-color: $dv-facet-link-hover-color;
   text-color: $dv-text-color;
   sub-text-color: $dv-subtext-color;
   primary-text-color: $dv-primary-text-color;
