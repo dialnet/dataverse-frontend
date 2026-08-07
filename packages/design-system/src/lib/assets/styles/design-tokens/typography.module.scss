@@ -2,13 +2,16 @@ $dv-font-size: 16px;
 $dv-font-size-sm: 12px;
 $dv-brand-font-size: 24px;
 
-// PLATICA theme: Inter, matching the JSF frontend (Redmine #12008).
+// PLATICA theme: Inter at 400/500/600/700 (see the <link> tags below), so
+// $dv-font-weight-semibold has a real face to render rather than being synthesised.
+// Matching the JSF frontend (Redmine #12008).
 // The webfont itself is loaded via <link> in index.html (app) and
 // .storybook/preview-head.html (design-system Storybook).
 $dv-font-family: ('Inter', 'Helvetica Neue', helvetica, arial, sans-serif);
 
 $dv-font-weight: 400;
 $dv-font-weight-light: 300;
+$dv-font-weight-semibold: 600;
 $dv-font-weight-bold: 700;
 
 $dv-line-height: 1.5;
@@ -20,6 +23,7 @@ $dv-line-height: 1.5;
   brand-font-size: $dv-brand-font-size;
   font-family: $dv-font-family;
   font-weight-light: $dv-font-weight-light;
+  font-weight-semibold: $dv-font-weight-semibold;
   font-weight-bold: $dv-font-weight-bold;
   line-height: $dv-line-height;
 }

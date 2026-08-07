@@ -1,3 +1,5 @@
+@import 'node_modules/@iqss/dataverse-design-system/src/lib/assets/styles/design-tokens/colors.module';
+
 /* Avoid text overflows */
 p, h1, h2, h3, h4, h5, h6, a {
   overflow-wrap: break-word;
@@ -10,4 +12,47 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
+}
+
+/* Icon-only action buttons (PLATICA theme, Redmine #12008)
+ *
+ * Throughout the app, icon-only controls are `variant="secondary"` buttons holding a
+ * single glyph: file preview/query, the download menu, the three-dots options menu,
+ * carousel arrows. $secondary now maps to the coral accent, which breaks them two
+ * ways: glyphs coloured with theme.color.primary become coral-on-coral and vanish,
+ * and glyphs using currentColor turn into heavy white-on-coral blocks.
+ *
+ * Neither is wanted: the button should be a bare hit area and the glyph should carry
+ * the colour. Done once here rather than per component, since the components set
+ * `className="btn btn-secondary"` inline and mostly have no stylesheet of their own.
+ *
+ * :has() is used to select "a secondary button whose only child is an icon". The
+ * dropdown caret is a ::after pseudo-element, not a child, so dropdown toggles still
+ * match. Needs Chrome 105+ / Safari 15.4+ / Firefox 121+.
+ */
+.btn-secondary:has(> svg:only-child) {
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-bg: transparent;
+  --bs-btn-active-border-color: transparent;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: transparent;
+
+  /* `fill` from a stylesheet beats the inline fill="..." attribute that
+   * react-bootstrap-icons writes, so no !important is needed. */
+  > svg {
+    fill: $dv-primary-color;
+    transition: fill 0.15s ease-in-out;
+  }
+
+  &:hover > svg,
+  &:focus > svg {
+    fill: $dv-link-color;
+  }
+
+  &:active > svg {
+    fill: $dv-link-hover-color;
+  }
 }

@@ -39,6 +39,14 @@
       }
 
       .facet-label-button {
+        // Facet links are coral, as in the JSF theme (a.facetLink). Bootstrap's
+        // .btn drives colour through these variables, so setting them is more
+        // robust than a plain `color`, which would have to out-specify .btn:hover.
+        --bs-btn-color: #{$dv-facet-link-color};
+        --bs-btn-hover-color: #{$dv-facet-link-hover-color};
+        --bs-btn-active-color: #{$dv-facet-link-hover-color};
+        --bs-btn-disabled-color: #{$dv-facet-link-color};
+
         padding: 0;
         text-align: left;
         text-decoration: none;
@@ -49,7 +57,7 @@
         }
 
         &:disabled {
-          color: $dv-primary-color;
+          color: $dv-facet-link-color;
         }
 
         span {

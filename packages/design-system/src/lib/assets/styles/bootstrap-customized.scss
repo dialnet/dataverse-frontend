@@ -4,7 +4,11 @@
 // Theme
 
 $primary: $dv-primary-color;
-$secondary: $dv-secondary-color;
+// Bootstrap 5's .btn-secondary is the neutral button, the equivalent of Bootstrap
+// 3's .btn-default, which the JSF theme paints coral. Mapped to the accent rather
+// than to $dv-secondary-color on purpose: that token is also the neutral SURFACE
+// colour (borders, subtle panels, hover greys in ~43 places), and must stay grey.
+$secondary: $dv-primary-color;
 $success: $dv-success-color;
 $info: $dv-info-color;
 $warning: $dv-warning-color;
@@ -21,6 +25,10 @@ $border-radius-lg: 12px;
 // color-contrast() otherwise picks black: white-on-#eb5656 is 3.5:1, below its
 // 4.5 default. NOTE: 3.5:1 meets WCAG AA for large text only, not normal text.
 $min-contrast-ratio: 3;
+
+// Bootstrap defaults button text to $font-weight-normal (400), which reads too
+// thin as white-on-coral. Bold gives the labels the presence they need.
+$btn-font-weight: $dv-font-weight-bold;
 
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
@@ -220,7 +228,8 @@ th {
 
 // The JSF theme lightens the accent on hover ($dv-primary-hover-color) whereas
 // Bootstrap's button-variant mixin darkens it. Restore the lighter hover.
-.btn-primary {
+.btn-primary,
+.btn-secondary {
   --bs-btn-hover-bg: #{$dv-primary-hover-color};
   --bs-btn-hover-border-color: #{$dv-primary-hover-color};
   --bs-btn-active-bg: #{$dv-primary-hover-color};
