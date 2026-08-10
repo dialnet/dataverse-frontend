@@ -14,7 +14,7 @@
 
     &:focus {
       border-color: $dv-link-color;
-      box-shadow: 0 0 0 0.25rem rgba(49, 116, 175, 0.25);
+      box-shadow: 0 0 0 0.25rem rgb(49 116 175 / 25%);
     }
 
     // Collections / Datasets / Files stay the original hyperlink blue. These used
