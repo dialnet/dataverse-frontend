@@ -1,4 +1,3 @@
-@use 'sass:color';
 @import 'node_modules/@iqss/dataverse-design-system/src/lib/assets/styles/design-tokens/colors.module';
 
 .card {
@@ -18,7 +17,13 @@
       justify-content: flex-end;
 
       .cta_link_text {
-        color: color.adjust($dv-brand-color, $lightness: -9%);
+        // Inherit the button's own text colour instead of tinting it. This used a
+        // darkened $dv-brand-color, which read fine as dark orange on the old grey
+        // .btn-secondary, but that token is now the coral accent, so darkening it
+        // produced dark red text on a coral button. All three usages in Usage.tsx
+        // sit inside `btn btn-secondary btn-sm`, so inheriting gives white and keeps
+        // tracking --bs-btn-color if the button styling changes again.
+        color: inherit;
         font-weight: 500;
       }
     }
