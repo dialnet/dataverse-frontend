@@ -5,29 +5,41 @@
 
 $primary: $dv-primary-color;
 // Bootstrap 5's .btn-secondary is the neutral button, the equivalent of Bootstrap
-// 3's .btn-default, which the JSF theme paints coral. Mapped to the accent rather
-// than to $dv-secondary-color on purpose: that token is also the neutral SURFACE
-// colour (borders, subtle panels, hover greys in ~43 places), and must stay grey.
+// 3's .btn-default. Mapped to the accent rather than to $dv-secondary-color on
+// purpose: that token is also the neutral SURFACE colour (borders, subtle panels,
+// hover greys in ~43 places), and must stay grey.
 $secondary: $dv-primary-color;
 $success: $dv-success-color;
 $info: $dv-info-color;
 $warning: $dv-warning-color;
 $danger: $dv-danger-color;
 
-// Rounded corners, matching the JSF frontend (Redmine #12008): 10px instead of
-// Bootstrap's default .375rem. Must precede the variables import below, since
-// Bootstrap declares these with !default.
+// Rounded corners: 10px instead of Bootstrap's default .375rem. Must precede the
+// variables import below, since Bootstrap declares these with !default.
 $border-radius: 10px;
 $border-radius-sm: 8px;
 $border-radius-lg: 12px;
 
-// White label text on the coral accent, as in the JSF frontend. Bootstrap's
-// color-contrast() otherwise picks black: white-on-#eb5656 is 3.5:1, below its
-// 4.5 default. NOTE: 3.5:1 meets WCAG AA for large text only, not normal text.
-$min-contrast-ratio: 3;
+// Buttons are pills. $btn-border-radius is independent of $border-radius, so cards,
+// alerts and inputs keep the 10px corners while only buttons go fully round.
+// $border-radius-pill is defined here rather than referenced, because Bootstrap does
+// not declare it until the variables import further down.
+$border-radius-pill: 50rem;
+$btn-border-radius: $border-radius-pill;
+$btn-border-radius-sm: $border-radius-pill;
+$btn-border-radius-lg: $border-radius-pill;
 
-// Bootstrap defaults button text to $font-weight-normal (400), which reads too
-// thin as white-on-coral. Bold gives the labels the presence they need.
+// color-contrast() can only ever return $color-contrast-light or $color-contrast-dark.
+// Pointing "dark" at the marine text colour makes it pick marine on the teal accent
+// (5.98:1) instead of black, and marine on the salmon danger colour (6.74:1) instead
+// of white (2.63:1, which fails). White on teal is only 2.97:1, so white is correctly
+// rejected. This lets $min-contrast-ratio stay at Bootstrap's accessible 4.5 default,
+// unlike the previous coral theme, which had to lower it to 3.
+$color-contrast-dark: $dv-text-color;
+$min-contrast-ratio: 4.5;
+
+// Bootstrap defaults button text to $font-weight-normal (400), which reads too thin
+// on the accent. Bold gives the labels the presence they need.
 $btn-font-weight: $dv-font-weight-bold;
 
 @import 'bootstrap/scss/functions';
@@ -226,12 +238,17 @@ th {
   }
 }
 
-// The JSF theme lightens the accent on hover ($dv-primary-hover-color) whereas
-// Bootstrap's button-variant mixin darkens it. Restore the lighter hover.
+// Every clickable element hovers to marine ($dv-primary-hover-color); Bootstrap's
+// button-variant mixin would merely darken the accent instead.
+// --bs-btn-hover-color must be set explicitly: Bootstrap derives it from the RESTING
+// background (teal -> marine label), which would leave marine-on-marine on hover.
+// White on marine is 17.75:1.
 .btn-primary,
 .btn-secondary {
   --bs-btn-hover-bg: #{$dv-primary-hover-color};
   --bs-btn-hover-border-color: #{$dv-primary-hover-color};
+  --bs-btn-hover-color: #{$dv-primary-text-color};
   --bs-btn-active-bg: #{$dv-primary-hover-color};
   --bs-btn-active-border-color: #{$dv-primary-hover-color};
+  --bs-btn-active-color: #{$dv-primary-text-color};
 }

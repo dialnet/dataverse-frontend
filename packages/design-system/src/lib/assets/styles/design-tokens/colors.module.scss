@@ -1,12 +1,13 @@
 // Base colors
-// PLATICA theme: coral accent (#eb5656) replacing the stock Dataverse blue,
-// matching the JSF frontend (Redmine #12008).
-$dv-brand-color: #eb5656;
-$dv-primary-color: #eb5656;
-$dv-primary-hover-color: #ff5656;
+// PLATICA theme: teal accent (#00a89b) with marine blue (#03045e) for text and for
+// every hover state. Teal is a SURFACE colour only - teal text on white is 2.97:1 and
+// fails WCAG AA, while marine on teal is 5.98:1 and marine on white is 17.75:1.
+$dv-brand-color: #00a89b;
+$dv-primary-color: #00a89b;
+$dv-primary-hover-color: #03045e;
 $dv-secondary-color: #e0e0e0;
 $dv-success-color: #3c763d;
-$dv-danger-color: #a94442;
+$dv-danger-color: #fa7961;
 $dv-warning-color: #8a6d3b;
 $dv-info-color: #31708f;
 $dv-success-box-color: #e0e0e0;
@@ -20,23 +21,24 @@ $dv-dataset-border-color: #428bca;
 $dv-file-border-color: #808080;
 
 // Text colors
-$dv-text-color: #333;
+$dv-text-color: #03045e;
 $dv-subtext-color: #767676;
 
 $dv-primary-text-color: #fff;
 $dv-secondary-text-color: $dv-text-color;
 
-$dv-headings-color: #333;
+$dv-headings-color: #03045e;
 
 // Link colors
-// Deliberately left blue: the JSF theme reverted links to blue and kept the
-// coral accent only for the left-hand facets (Redmine #12008, 2nd commit).
-$dv-link-color: #3174af;
-$dv-link-hover-color: #23527c;
-$dv-facet-link-color: #eb5656;
-$dv-facet-link-hover-color: #c0392b;
+// Links and facet links are marine at rest and teal on hover. They cannot be teal at
+// rest: teal on white is 2.97:1. The hover state also gets an underline, so colour is
+// not the only signal.
+$dv-link-color: #03045e;
+$dv-link-hover-color: #00a89b;
+$dv-facet-link-color: #03045e;
+$dv-facet-link-hover-color: #00a89b;
 $dv-tooltip-color: #99bcdb;
-$dv-tooltip-hover-color: #eb5656;
+$dv-tooltip-hover-color: #00a89b;
 
 // Button colors
 $dv-button-border-color: #ccc;

@@ -5,8 +5,8 @@
     cursor: pointer;
 
     // The box itself, not just the label: Bootstrap tints a checked checkbox with
-    // $primary, which is now the coral accent. Keep these three in link blue so the
-    // control matches its label.
+    // $primary, which is the teal accent. Keep these three marine so the control
+    // matches its label.
     &:checked {
       background-color: $dv-link-color;
       border-color: $dv-link-color;
@@ -14,12 +14,12 @@
 
     &:focus {
       border-color: $dv-link-color;
-      box-shadow: 0 0 0 0.25rem rgb(49 116 175 / 25%);
+      box-shadow: 0 0 0 0.25rem rgb(3 4 94 / 25%);
     }
 
-    // Collections / Datasets / Files stay the original hyperlink blue. These used
-    // $dv-primary-color, which was blue upstream but is now the coral accent, so
-    // they must point at $dv-link-color explicitly to keep reading as links.
+    // Collections / Datasets / Files read as links, so they follow $dv-link-color
+    // (marine) rather than the accent. They originally used $dv-primary-color, which
+    // was blue upstream but is now the teal accent - and teal on white is 2.97:1.
     & + label {
       color: $dv-link-color;
       cursor: pointer;

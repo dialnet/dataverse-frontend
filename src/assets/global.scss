@@ -41,15 +41,18 @@ h1, h2, h3, h4, h5, h6 {
   --bs-btn-disabled-border-color: transparent;
 
   /* `fill` from a stylesheet beats the inline fill="..." attribute that
-   * react-bootstrap-icons writes, so no !important is needed. */
+   * react-bootstrap-icons writes, so no !important is needed.
+   * Marine at rest, teal on hover: a teal glyph on white is only 2.97:1, which fails
+   * the 3:1 WCAG minimum for non-text contrast, so teal is used for the transient
+   * hover state only. */
   > svg {
-    fill: $dv-primary-color;
+    fill: $dv-link-color;
     transition: fill 0.15s ease-in-out;
   }
 
   &:hover > svg,
   &:focus > svg {
-    fill: $dv-link-color;
+    fill: $dv-primary-color;
   }
 
   &:active > svg {
