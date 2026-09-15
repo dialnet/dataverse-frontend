@@ -1,0 +1,24 @@
+# Contexto del build de imagen (ver Dockerfile).
+#
+# Sin esto, `COPY . .` se lleva el .git y cualquier node_modules o dist que haya en la máquina
+# de quien construye: infla el contexto y, sobre todo, invalida la caché de capas en cada commit,
+# porque el .git cambia siempre.
+
+.git
+.github
+
+**/node_modules
+**/dist
+dist_keycloak
+
+# Artefactos de test y de storybook
+coverage
+.nyc_output
+cypress/videos
+cypress/screenshots
+storybook-static
+
+# Configuración local
+.env
+.env.*
+!.env.example.shib
