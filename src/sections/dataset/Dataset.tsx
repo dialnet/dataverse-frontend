@@ -11,7 +11,6 @@ import { DatasetMetadata } from './dataset-metadata/DatasetMetadata'
 import { DatasetSummary } from './dataset-summary/DatasetSummary'
 import { DatasetCitation } from './dataset-citation/DatasetCitation'
 import { DatasetFiles } from './dataset-files/DatasetFiles'
-import { FileRepository } from '../../files/domain/repositories/FileRepository'
 import { DatasetActionButtons } from './dataset-action-buttons/DatasetActionButtons'
 import { useDataset } from './DatasetContext'
 import { useNotImplementedModal } from '../not-implemented/NotImplementedModalContext'
@@ -35,7 +34,6 @@ import { useDatasetRepositories } from '@/shared/contexts/repositories/Repositor
 import { DatasetReviews } from './dataset-reviews/DatasetReviews'
 
 interface DatasetProps {
-  fileRepository: FileRepository
   metadataBlockInfoRepository: MetadataBlockInfoRepository
   contactRepository: ContactRepository
   dataverseInfoRepository: DataverseInfoRepository
@@ -45,7 +43,6 @@ interface DatasetProps {
 }
 
 export function Dataset({
-  fileRepository,
   metadataBlockInfoRepository,
   contactRepository,
   dataverseInfoRepository,
@@ -175,7 +172,6 @@ export function Dataset({
                 <div className={styles['tab-container']}>
                   {filesTabInfiniteScrollEnabled ? (
                     <DatasetFilesScrollable
-                      filesRepository={fileRepository}
                       datasetPersistentId={dataset.persistentId}
                       datasetVersion={dataset.version}
                       canUpdateDataset={canUpdateDataset}
@@ -183,7 +179,6 @@ export function Dataset({
                     />
                   ) : (
                     <DatasetFiles
-                      filesRepository={fileRepository}
                       datasetPersistentId={dataset.persistentId}
                       datasetVersion={dataset.version}
                     />
@@ -207,7 +202,6 @@ export function Dataset({
                   <DatasetTerms
                     license={dataset.license}
                     termsOfUse={dataset.termsOfUse}
-                    filesRepository={fileRepository}
                     datasetPersistentId={dataset.persistentId}
                     datasetVersion={dataset.version}
                     canUpdateDataset={canUpdateDataset}

@@ -21,6 +21,8 @@ import { CollectionSummaryMother } from '@tests/component/collection/domain/mode
 import { DatasetVersionPaginationInfo } from '@/dataset/domain/models/DatasetVersionPaginationInfo'
 import { DatasetUploadLimits } from '@/dataset/domain/models/DatasetUploadLimits'
 import { DatasetReview } from '@/dataset/domain/models/DatasetReview'
+import { ExportedDatasetMetadata } from '@/dataset/domain/models/ExportedDatasetMetadata'
+import { DatasetNotNumberedVersion } from '@iqss/dataverse-client-javascript'
 
 export class DatasetMockRepository implements DatasetRepository {
   getAllWithCount: (
@@ -165,6 +167,21 @@ export class DatasetMockRepository implements DatasetRepository {
       setTimeout(() => {
         resolve({
           content: 'Formatted citation content',
+          contentType: 'text/plain'
+        })
+      }, FakerHelper.loadingTimout())
+    })
+  }
+
+  exportDatasetMetadata(
+    _datasetId: string | number,
+    _exporter: string,
+    _version?: DatasetNotNumberedVersion.LATEST_PUBLISHED | DatasetNotNumberedVersion.DRAFT
+  ): Promise<ExportedDatasetMetadata> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          content: 'Exported dataset metadata content',
           contentType: 'text/plain'
         })
       }, FakerHelper.loadingTimout())

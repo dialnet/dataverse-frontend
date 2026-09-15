@@ -2,7 +2,6 @@ import cn from 'classnames'
 import { useMemo, useRef, useState } from 'react'
 import useInfiniteScroll, { UseInfiniteScrollHookRefCallback } from 'react-infinite-scroll-hook'
 import { Alert } from '@iqss/dataverse-design-system'
-import { FileRepository } from '../../../files/domain/repositories/FileRepository'
 import { FileCriteria } from '../../../files/domain/models/FileCriteria'
 import { DatasetVersion } from '../../../dataset/domain/models/Dataset'
 import { FilePaginationInfo } from '../../../files/domain/models/FilePaginationInfo'
@@ -13,10 +12,10 @@ import { useObserveElementSize } from '../../../shared/hooks/useObserveElementSi
 import { FilesTableScrollable } from './files-table/FilesTableScrollable'
 import { FileCriteriaForm } from './file-criteria-form/FileCriteriaForm'
 import { FilesContext } from '@/sections/file/FilesContext'
+import { useDatasetRepositories } from '@/shared/contexts/repositories/RepositoriesProvider'
 import styles from './DatasetFilesScrollable.module.scss'
 
 interface DatasetFilesScrollableProps {
-  filesRepository: FileRepository
   datasetPersistentId: string
   datasetVersion: DatasetVersion
   canUpdateDataset?: boolean
@@ -25,11 +24,11 @@ interface DatasetFilesScrollableProps {
 export type SentryRef = UseInfiniteScrollHookRefCallback
 
 export function DatasetFilesScrollable({
-  filesRepository,
   datasetPersistentId,
   datasetVersion,
   canUpdateDataset
 }: DatasetFilesScrollableProps) {
+  const { fileRepository } = useDatasetRepositories()
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null)
   const criteriaContainerRef = useRef<HTMLDivElement | null>(null)
   const criteriaContainerSize = useObserveElementSize(criteriaContainerRef)
@@ -44,7 +43,7 @@ export function DatasetFilesScrollable({
     isLoading: _isLoadingFilesCountInfo,
     error: errorFilesCountInfo
   } = useGetFilesCountInfo({
-    filesRepository,
+    filesRepository: fileRepository,
     datasetPersistentId,
     datasetVersion,
     criteria,
@@ -56,7 +55,7 @@ export function DatasetFilesScrollable({
     isLoading: _isLoadingFilesTotalDownloadSize,
     error: errorFilesTotalDownloadSize
   } = useGetFilesTotalDownloadSize({
-    filesRepository,
+    filesRepository: fileRepository,
     datasetPersistentId,
     datasetVersion,
     criteria,
@@ -75,7 +74,7 @@ export function DatasetFilesScrollable({
     isEmptyFiles,
     refreshFiles
   } = useGetAccumulatedFiles({
-    filesRepository,
+    filesRepository: fileRepository,
     datasetPersistentId,
     datasetVersion
   })
@@ -183,7 +182,6 @@ export function DatasetFilesScrollable({
             showSentryRef={showSentryRef}
             isEmptyFiles={isEmptyFiles}
             accumulatedCount={accumulatedCount}
-            fileRepository={filesRepository}
           />
         </FilesContext.Provider>
       </div>
